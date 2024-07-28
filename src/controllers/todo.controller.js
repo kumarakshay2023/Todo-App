@@ -35,10 +35,24 @@ exports.updateTodo = asyncHandler(async (req, res) => {
   const { title, description, is_completed } = req.body;
   const { id } = req.params;
   if (!id) throw new ApiError("Id must be provided", 400);
-
-  await Todo.updateOne({ _id: id }, { title, description, is_completed });
+  const findTodo = await Todo.findById(id);
+  if(!findTodo) throw new ApiError("Todo not found!",404)
+   await Todo.updateOne({ _id: id }, { title, description, is_completed });
   return res.status(200).json({
     message: "Todo updated sucessfully",
     success: true,
   });
 });
+
+exports.deleteTodo = asyncHandler(async (req, res) => {
+      const {id} = req.params;
+      if (!id) throw new ApiError("Id must be provided", 400);
+      const findTodo = await Todo.findById(id);
+      if(!findTodo) throw new ApiError("Todo not found!",404)
+      await Todo.deleteOne({ _id: id })
+    return res.status(200).json({
+        message: "Todo deleted succesfully",
+        success: true,
+    })
+
+})
