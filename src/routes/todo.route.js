@@ -1,10 +1,12 @@
 const express = require('express');
-const { addTodo } = require('../controllers/todo.controller');
+const { addTodo, getTodoById } = require('../controllers/todo.controller');
 const todoRouter = express.Router();
 
 
 
-todoRouter.post('/',addTodo)
+todoRouter.get('/:id',getTodoById);
+todoRouter.post('/',addTodo);
+
 
 
 

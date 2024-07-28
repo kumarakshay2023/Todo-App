@@ -11,3 +11,13 @@ exports.addTodo = asyncHandler(async (req, res) => {
     success: true,
   });
 });
+
+exports.getTodoById = asyncHandler(async (req, res) => {
+    const {id} = req.params;
+    const findTodo = await Todo.findById(id);
+    if(!findTodo) throw new ApiError("Todo not found", 404);
+    return res.status(200).json({
+        data:findTodo,
+        success: true,
+    });
+})
