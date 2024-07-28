@@ -21,3 +21,14 @@ exports.getTodoById = asyncHandler(async (req, res) => {
         success: true,
     });
 })
+
+exports.getTodoListing = asyncHandler(async(req,res)=>{
+    const todoList = await Todo.find();
+    if(!todoList) throw new ApiError("No todo found!",404);
+    return res.status(200).json({
+        data:todoList,
+        success:true
+    })
+})
+
+
