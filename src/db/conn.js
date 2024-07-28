@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const CONN_URL = process.env.CONNECTION_URL
+const DB_NAME='TODO';
 
 exports.connectDb = async ()=>{
     try {
